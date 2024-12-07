@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "jQuery": "^1.7.4",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "name": "tasck_0",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
