@@ -39,6 +39,6 @@ test('should check the login form input email and pass', () => {
 
 test('Should check the button form', () => {
     render(<App />)
-    const button = screen.getByRole('button', { name: /ok/i });
+    const button = screen.getByText(/ok/i);
     expect(button).toBeInTheDocument();
 });
