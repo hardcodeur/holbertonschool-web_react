@@ -1,0 +1,7 @@
+.notifications{
+    border: 1px dotted #e1003c;
+}
+
+.notifications p{
+    margin-left: 1rem;
+}
