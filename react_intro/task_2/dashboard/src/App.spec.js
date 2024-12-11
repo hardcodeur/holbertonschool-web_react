@@ -20,3 +20,25 @@ test('Should check header image is présent', () => {
     const imgHeader = screen.getByAltText(/holberton logo/i);
     expect(imgHeader).toBeInTheDocument();
 })
+
+test('should check the login form label email and pass', () => {
+    render(<App />)
+    const labelEmail = screen.getByLabelText(/email/i);
+    const labelPass = screen.getByLabelText(/password/i)
+    expect(labelEmail).toBeInTheDocument();
+    expect(labelPass).toBeInTheDocument();
+});
+
+test('should check the login form input email and pass', () => {
+    render(<App />)
+    const inputEmail = screen.getByPlaceholderText(/email/i);
+    const inputPass = screen.getByPlaceholderText(/password/i)
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPass).toBeInTheDocument();
+});
+
+test('Should check the button form', () => {
+    render(<App />)
+    const button = screen.getByRole('button', { name: /ok/i });
+    expect(button).toBeInTheDocument();
+});
