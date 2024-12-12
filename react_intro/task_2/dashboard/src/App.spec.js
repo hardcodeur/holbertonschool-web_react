@@ -31,14 +31,15 @@ test('should check the login form label email and pass', () => {
 
 test('should check the login form input email and pass', () => {
     render(<App />)
-    const inputEmail = screen.getByPlaceholderText(/email/i);
-    const inputPass = screen.getByPlaceholderText(/password/i)
-    expect(inputEmail).toBeInTheDocument();
-    expect(inputPass).toBeInTheDocument();
+    const emailInput = screen.getByRole('textbox');
+    const passwordInput = screen.getByLabelText('Password');
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    
 });
 
 test('Should check the button form', () => {
     render(<App />)
-    const button = screen.getByText(/ok/i);
+    const button = screen.getByRole('button', { name: /ok/i });
     expect(button).toBeInTheDocument();
 });
