@@ -23,8 +23,8 @@ test('Should check header image is présent', () => {
 
 test('should check the login form label email and pass', () => {
     render(<App />)
-    const labelEmail = screen.getByLabelText(/email/i);
-    const labelPass = screen.getByLabelText(/password/i)
+    const labelEmail = screen.getByText(/email/i);
+    const labelPass = screen.getByText(/password/i)
     expect(labelEmail).toBeInTheDocument();
     expect(labelPass).toBeInTheDocument();
 });
