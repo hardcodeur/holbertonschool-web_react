@@ -17,6 +17,16 @@ body, html,#root {
 .App-body{
   height: 60vh;
 }
+
+.App-body label{
+  margin-right: 0.5rem;
+}
+
+.App-body input{
+  margin-right: 1rem;
+}
+
+
 .App-footer{
   text-align: center;
   border-top: 2px solid #e1003c;

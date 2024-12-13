@@ -32,7 +32,7 @@ test('should check the login form label email and pass', () => {
 test('should check the login form input email and pass', () => {
     render(<App />)
     const emailInput = screen.getByRole('textbox');
-    const passwordInput = screen.getByLabelText('Password');
+    const passwordInput = screen.getByLabelText(/Password/i);
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
     

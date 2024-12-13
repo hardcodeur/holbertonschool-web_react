@@ -1,7 +1,23 @@
 .notifications{
     border: 1px dotted #e1003c;
+    padding: 0 1rem;
 }
 
-.notifications p{
-    margin-left: 1rem;
+.notifications .notif-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notif-head img{
+    width: 1rem;
+    height: 1rem;
+}
+
+.notifications ul{
+    color: #e1003c;
+}
+
+.notifications ul li:first-child{
+    color: blue;
 }
