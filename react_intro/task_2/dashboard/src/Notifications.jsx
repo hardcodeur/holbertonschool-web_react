@@ -8,7 +8,7 @@ function Notifications() {
         <div className="notifications">
             <div className="notif-head">
                 <p>Here is the list of notifications</p>
-                <button onClick={console.log("Close button has been clicked")} aria-label="close" style={{cursor:"pointer",border: "none",backgroundColor:"transparent"}}><img src={closeBtn} alt="close" /></button>
+                <button onClick={console.log("Close button has been clicked")} aria-label="close" style={{textAlign: "end",cursor:"pointer",border: "none",backgroundColor:"transparent"}}><img src={closeBtn} alt="close" /></button>
             </div>
             <ul>
                 <li data-priority="default" >New course available</li>
