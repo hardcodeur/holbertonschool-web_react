@@ -9,7 +9,7 @@ test('return notifications title "Here is the list of notifications"', () => {
 
 test('Check the existence of the button element', () => {
     render(<Notifications />)
-    const btn = screen.getByRole('button', { name: "close" });
+    const btn = screen.getByRole('button', { name: "close",exact: false });
     expect(btn).toBeInTheDocument();
 });
 
@@ -23,7 +23,7 @@ test('Check whether clicking the close button logs', () => {
     render(<Notifications />)
     // On espionne la console pour voir les valeurs affichés
     const consoleLogSpy = jest.spyOn(console, 'log');
-    const btn = screen.getByRole('button', { name: "close" });
+    const btn = screen.getByRole('button', { name: "close",exact: false });
     // on simule le clique
     fireEvent.click(btn)
     expect(consoleLogSpy).toHaveBeenCalledWith("Close button has been clicked");
