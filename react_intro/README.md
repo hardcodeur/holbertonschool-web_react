@@ -7,6 +7,7 @@
 - [Apprendre React](https://react.dev/learn)
 - [Vite Doc](https://vite.dev/guide/)
 - [Lib test React](https://testing-library.com/docs/react-testing-library/intro/)
+- [Lib test React queries](https://testing-library.com/docs/queries/about/)
 - [Déployer sont app React/vite sur Github](https://medium.com/@badreddine.boudaoud21/create-a-react-app-with-vite-and-deploy-it-on-github-48b82e19f821)
 
 ## Objectifs
