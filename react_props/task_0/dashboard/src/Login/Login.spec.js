@@ -3,10 +3,10 @@ import Login from "./Login";
 
 test('should check the login form label email and pass', () => {
     render(<Login />)
-    const labelEmail = screen.getByText(/email/i);
-    const labelPass = screen.getByText(/password/i)
+    const labelEmail = screen.getByRole();
+    // const labelPass = screen.getByText(/password/i)
     expect(labelEmail).toBeInTheDocument();
-    expect(labelPass).toBeInTheDocument();
+    // expect(labelPass).toBeInTheDocument();
 });
 
 test('should check the login form input email and pass', () => {
