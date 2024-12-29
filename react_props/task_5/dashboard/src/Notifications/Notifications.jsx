@@ -20,32 +20,42 @@ function btnClose(){
 
 function Notifications({ notifications = [], displayDrawer = true }) {
     if(displayDrawer){
-        return (
-            <>
-            <div className="notification-title">Your notifications</div>
-            <div className="notifications">
-                <div className="notif-head">
-                    <p>Here is the list of notifications</p>
-                    <button role="button" onClick={btnClose} aria-label="close" style={{textAlign: "end",cursor:"pointer",border: "none",backgroundColor:"transparent"}}><img src={closeBtn} alt="close" /></button>
+        if(notifications.length > 0){
+            return (
+                <>
+                <div className="notification-title">Your notifications</div>
+                <div className="notifications">
+                    <div className="notif-head">
+                        <p>Here is the list of notifications</p>
+                        <button role="button" onClick={btnClose} aria-label="close" style={{textAlign: "end",cursor:"pointer",border: "none",backgroundColor:"transparent"}}><img src={closeBtn} alt="close" /></button>
+                    </div>
+                    <ul>
+                        {notifications.map((notification) => (
+                            <NotificationItem
+                                key={notification.id}
+                                type={notification.type}
+                                value={notification.value}
+                                html={notification.html}
+                            />
+                        ))}
+                    </ul>
                 </div>
-                <ul>
-                    {notifications.map((notification) => (
-                        <NotificationItem
-                            key={notification.id}
-                            type={notification.type}
-                            value={notification.value}
-                            html={notification.html}
-                        />
-                    ))}
-                </ul>
-            </div>
-            </>
-        )
+                </>
+            )
+        }else{
+            return (
+                <>
+                <div className="notification-title">Your notifications</div>
+                <div className="notifications">
+                    <p>No new notification for now</p>
+                </div>
+                </>
+            )
+        }
     }else{
         return (
             <>
             <div className="notification-title">Your notifications</div>
-            <p>No new notification for now</p>
             </>
         )
     }
