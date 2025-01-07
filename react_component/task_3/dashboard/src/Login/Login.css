@@ -1,0 +1,11 @@
+.App-body{
+    height: 60vh;
+}
+
+.App-body label{
+    margin-right: 0.5rem;
+}
+  
+.App-body input{
+    margin-right: 1rem;
+}
