@@ -20,12 +20,30 @@ const coursesList = [
   { id: 3, name: 'React', credit: 40 }
 ];
 
-let isLoggedIn = false;
+
 
 class App extends React.Component{
 
   constructor(props){
     super(props);
+    this.keybordLogOutDetector = this.keybordLogOutDetector.bind(this);
+  }
+
+  keybordLogOutDetector(event){
+    if(event.ctrlKey && event.key == "h"){
+      alert("Logging you out");
+      this.props.logOut();
+    }else{
+      return;
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown",this.keybordLogOutDetector)
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.keybordLogOutDetector);
   }
 
   render(){
@@ -36,8 +54,8 @@ class App extends React.Component{
         </div>
         <Header/>
         <div className="App-body">
-          {!isLoggedIn && <Login />}
-          {isLoggedIn && <CourseList courses = {coursesList} />}
+          {!this.props.isLoggedIn && <Login />}
+          {this.props.isLoggedIn && <CourseList courses = {coursesList} />}
         </div>
         <Footer />
       </>
@@ -45,8 +63,14 @@ class App extends React.Component{
   }
 }
 
-App.PropTypes= {
-  isLoggedIn : PropTypes.bool
+App.propTypes= {
+  isLoggedIn : PropTypes.bool,
+  logOut: PropTypes.func,
+}
+
+App.defaultProps={
+  isLoggedIn : false,
+  logOut : ()=>{}
 }
 
 export default App
