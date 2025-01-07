@@ -1,0 +1,11 @@
+table,
+th,
+tr,
+td {
+    border-collapse: collapse;
+    border: 2px solid rgb(161, 161, 161);
+}
+
+#CourseList{
+    width: 100%;
+}
