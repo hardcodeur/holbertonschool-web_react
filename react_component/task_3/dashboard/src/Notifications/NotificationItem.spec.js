@@ -7,7 +7,7 @@ test('NotificationItem render', () => {
     render(<NotificationItem />)
 })
 
-test('Should display the correct notification type => urgent ', () => {
+test('Should display the correct notification type => urgent', () => {
     const props = {
         type: 'urgent',
         html: { __html: getLatestNotification() },
@@ -18,7 +18,7 @@ test('Should display the correct notification type => urgent ', () => {
     expect(liElement).toHaveAttribute('data-notification-type', 'urgent');
 });
 
-test('Should display the correct notification type => default ', () => {
+test('Should display the correct notification type => default', () => {
     const props = {
         type: 'default',
         html: undefined,
@@ -29,7 +29,7 @@ test('Should display the correct notification type => default ', () => {
     expect(liElement).toHaveAttribute('data-notification-type', 'default');
 });
 
-test('Should check if the markAsRead props is call when click event is triggered ', () => {
+test('Should check if the markAsRead props is call when click event is triggered', () => {
     const markAsRead = jest.fn();
     const props = {
         markAsRead : markAsRead,

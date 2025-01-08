@@ -3,7 +3,9 @@ import Notifications from "../Notifications/Notifications.jsx";
 import Header from "../Header/Header.jsx";
 import Login from "../Login/Login.jsx";
 import Footer from "../Footer/Footer.jsx";
+import BodySectionWithMarginBottom  from "../BodySection/BodySectionWithMarginBottom.jsx";
 import CourseList from "../CourseList/CourseList.jsx"
+import BodySection from "../BodySection/BodySection.jsx"
 import { getLatestNotification } from "../utils/utils.js";
 import './App.css'
 import PropTypes from 'prop-types';
@@ -54,8 +56,9 @@ class App extends React.Component{
         </div>
         <Header/>
         <div className="App-body">
-          {!this.props.isLoggedIn && <Login />}
-          {this.props.isLoggedIn && <CourseList courses = {coursesList} />}
+          {!this.props.isLoggedIn && <BodySectionWithMarginBottom title="Log in to continue"><Login /></BodySectionWithMarginBottom>}
+          {this.props.isLoggedIn && <BodySectionWithMarginBottom title="Course list" > <CourseList courses = {coursesList} /> </BodySectionWithMarginBottom>}
+          <BodySection title="News from the School"><p>Holberton School News goes here</p></BodySection>
         </div>
         <Footer />
       </>
@@ -69,7 +72,7 @@ App.propTypes= {
 }
 
 App.defaultProps={
-  isLoggedIn : false,
+  isLoggedIn : true,
   logOut : ()=>{}
 }
 
