@@ -5,22 +5,21 @@ import { test, expect, jest } from "@jest/globals";
 
 test('Should pass any number of children without knows then beforehand', () => {
     const props = {
-        title : "bouh"
+        title : "test"
     }
     render(
     <>
     <BodySection {...props} >
-        <p>Bouh 1</p>
-        <p>Bouh 2</p>
-        <p>Bouh 3</p>
+        <p>test 1</p>
+        <p>test 2</p>
     </BodySection>
     </>
     )
-    const title = screen.getByRole('heading', { name: /bouh/i })
+    const title = screen.getByRole('heading', { name: /test/i })
     expect(title).toBeInTheDocument();
     
-    const elt1 = screen.getByText('Bouh 1');
-    const elt2 = screen.getByText('Bouh 2');
+    const elt1 = screen.getByText('test 1');
+    const elt2 = screen.getByText('test 2');
     expect(elt1).toBeInTheDocument();
     expect(elt2).toBeInTheDocument();
 

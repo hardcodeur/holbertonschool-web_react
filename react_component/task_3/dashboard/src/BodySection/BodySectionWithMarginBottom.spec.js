@@ -5,7 +5,7 @@ import { test, expect, jest } from "@jest/globals";
 
 test('Should contains a div with the class bodySectionWithMargin', () => {
     const props = {
-        title : "bouh"
+        title : "test"
     }
 
     const { container } = render(<BodySectionWithMarginBottom {...props}></BodySectionWithMarginBottom>)
@@ -14,15 +14,15 @@ test('Should contains a div with the class bodySectionWithMargin', () => {
 
 test('renders BodySection component', () => {
     const props = {
-        title : "bouh!"
+        title : "test"
     }
     render(
         <BodySectionWithMarginBottom {...props}>
-            <p>hello</p>
+            <p>test 1</p>
         </BodySectionWithMarginBottom>
     );
-    const title = screen.getByText("bouh!");
-    const paragraphe = screen.getByText("hello");
+    const title = screen.getByRole('heading', { name: /test/i });
+    const paragraphe = screen.getByText("test 1");
 
     expect(title).toBeInTheDocument();
     expect(paragraphe).toBeInTheDocument();
