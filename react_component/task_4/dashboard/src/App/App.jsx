@@ -1,10 +1,10 @@
 import React from "react";
 import Notifications from "../Notifications/Notifications.jsx";
 import Header from "../Header/Header.jsx";
-import Login from "../Login/Login.jsx";
+import LoggedLogin from "../Login/Login.jsx";
 import Footer from "../Footer/Footer.jsx";
 import BodySectionWithMarginBottom  from "../BodySection/BodySectionWithMarginBottom.jsx";
-import CourseList from "../CourseList/CourseList.jsx"
+import LoggedCourseList from "../CourseList/CourseList.jsx"
 import BodySection from "../BodySection/BodySection.jsx"
 import { getLatestNotification } from "../utils/utils.js";
 import './App.css'
@@ -56,8 +56,8 @@ class App extends React.Component{
         </div>
         <Header/>
         <div className="App-body">
-          {!this.props.isLoggedIn && <BodySectionWithMarginBottom title="Log in to continue"><Login /></BodySectionWithMarginBottom>}
-          {this.props.isLoggedIn && <BodySectionWithMarginBottom title="Course list" > <CourseList courses = {coursesList} /> </BodySectionWithMarginBottom>}
+          {!this.props.isLoggedIn && <BodySectionWithMarginBottom title="Log in to continue"><LoggedLogin /></BodySectionWithMarginBottom>}
+          {this.props.isLoggedIn && <BodySectionWithMarginBottom title="Course list" > <LoggedCourseList courses = {coursesList} /> </BodySectionWithMarginBottom>}
           <BodySection title="News from the School"><p>Holberton School News goes here</p></BodySection>
         </div>
         <Footer />
