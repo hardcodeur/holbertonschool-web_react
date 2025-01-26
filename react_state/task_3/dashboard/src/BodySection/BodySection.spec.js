@@ -1,18 +1,27 @@
-import { render, screen } from '@testing-library/react';
-import BodySection from './BodySection';
+import React from 'react';
+import BodySection from "./BodySection";
+import { render,screen } from "@testing-library/react";
+import { test, expect, jest } from "@jest/globals";
 
-test('It should pass any number of children without knows then beforehand', () => {
+test('Should pass any number of children without knows then beforehand', () => {
+    const props = {
+        title : "test"
+    }
     render(
-        <BodySection title="Test Title">
-            <p>Child 1</p>
-            <p>Child 2</p>
-            <p>Child 3</p>
-        </BodySection>
-    );
+    <>
+    <BodySection {...props} >
+        <p>test 1</p>
+        <p>test 2</p>
+    </BodySection>
+    </>
+    )
+    const title = screen.getByRole('heading', { name: /test/i })
+    expect(title).toBeInTheDocument();
+    
+    const elt1 = screen.getByText('test 1');
+    const elt2 = screen.getByText('test 2');
+    expect(elt1).toBeInTheDocument();
+    expect(elt2).toBeInTheDocument();
 
-    const titleElement = screen.getByRole('heading', { name: /test title/i });
-    expect(titleElement).toBeInTheDocument();
-    expect(screen.getByText('Child 1')).toBeInTheDocument();
-    expect(screen.getByText('Child 2')).toBeInTheDocument();
-    expect(screen.getByText('Child 3')).toBeInTheDocument();
+
 });

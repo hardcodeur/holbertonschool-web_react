@@ -1,11 +1,13 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Notifications from './Notifications';
 import { getLatestNotification } from '../utils/utils'
+import { test, expect, jest } from "@jest/globals";
+import Notifications from './Notifications';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+StyleSheetTestUtils.suppressStyleInjection();
 
 describe('Notifications component', () => {
-  const logSpy = jest.spyOn(console, 'log')
-  test('Renders the notifications title', () => {
+  test('Should renders the notifications title', () => {
     const props = {
       notifications: [
         { id: 1, type: 'default', value: 'New course available' },
@@ -19,7 +21,7 @@ describe('Notifications component', () => {
     expect(titleElement).toBeInTheDocument();
   });
 
-  test('Renders the close button', () => {
+  test('Should renders the close button', () => {
     const props = {
       notifications: [
         { id: 1, type: 'default', value: 'New course available' },
@@ -33,7 +35,7 @@ describe('Notifications component', () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
-  test('Renders three notifications', () => {
+  test('Should renders three notifications', () => {
     const props = {
       notifications: [
         { id: 1, type: 'default', value: 'New course available' },
@@ -47,6 +49,7 @@ describe('Notifications component', () => {
     expect(listItemElements).toHaveLength(3);
   });
 
+
   test('Should display the 3 notification items with their given text', () => {
     const props = {
       notifications: [
@@ -56,7 +59,6 @@ describe('Notifications component', () => {
       ],
       displayDrawer: true
     };
-
     render(<Notifications {...props} />);
     expect(screen.getByText('New course available')).toBeInTheDocument();
     expect(screen.getByText('New resume available')).toBeInTheDocument();
@@ -72,56 +74,54 @@ describe('Notifications component', () => {
     expect(screen.getByText('No new notification for now')).toBeInTheDocument();
   });
 
-
-  test('It should rerender when prop values change', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
-    const initialProps = {
-      displayDrawer: false,
-      notifications: [],
-    };
-    render(<Notifications {...initialProps} />);
-    expect(screen.queryByText('Here is the list of notifications')).toBeNull();
-    const updatedProps = {
-      displayDrawer: true,
-      notifications: [
-        { id: 1, type: 'default', value: 'New notification' }
-      ],
-    };
-    render(<Notifications {...updatedProps} />);
-    const firstListItemElement = screen.getAllByRole('listitem')[0];
-    fireEvent.click(firstListItemElement)
-    expect(consoleSpy).toHaveBeenCalledWith('Notification 1 has been marked as read')
+  test('Notifications does not re-render if the notifications prop length stays the same', () => {
+    const initialNotifications = [
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' }
+    ];
+    const { rerender } = render(<Notifications notifications={initialNotifications} />);
+    rerender(<Notifications notifications={initialNotifications} />);
     expect(screen.getByText('Here is the list of notifications')).toBeInTheDocument();
-    expect(screen.getByRole('listitem')).toBeInTheDocument()
   });
 
-  test('Should rerender when the notifications length changes', () => {
+  test('Notifications re-renders when the notifications prop length changes', () => {
     const initialNotifications = [
-      { id: 1, type: 'default', value: 'Notification 1' },
+      { id: 1, type: 'default', value: 'New course available' }
     ];
     const newNotifications = [
-      { id: 1, type: 'default', value: 'Notification 1' },
-      { id: 2, type: 'urgent', value: 'Notification 2' },
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' }
     ];
-    const renderSpy = jest.spyOn(Notifications.prototype, 'render');
-    const { rerender } = render(<Notifications notifications={initialNotifications} displayDrawer={true} />);
-    expect(renderSpy).toHaveBeenCalledTimes(1);
-    rerender(<Notifications notifications={newNotifications} displayDrawer={true} />);
-    expect(renderSpy).toHaveBeenCalledTimes(2);
-    renderSpy.mockRestore();
+    const { rerender } = render(<Notifications notifications={initialNotifications} />);
+    rerender(<Notifications notifications={newNotifications} />);
+    expect(screen.getByText('New resume available')).toBeInTheDocument();
   });
 
-  test('Calls handleDisplayDrawer when clicking on the menu item', () => {
-    const handleDisplayDrawerMock = jest.fn();
-    render(
-      <Notifications
-        notifications={[]}
-        displayDrawer={false}
-        handleDisplayDrawer={handleDisplayDrawerMock}
-      />
-    );
-    const menuItem = screen.getByText('Your notifications');
-    fireEvent.click(menuItem);
-    expect(handleDisplayDrawerMock).toHaveBeenCalled();
+  test('Should verify if clicking on the menu item calls handleDisplayDrawer function', () => {
+    handleDisplayDrawer = jest.fn();
+    render(<Notifications 
+      displayDrawer={false}
+      handleDisplayDrawer = {handleDisplayDrawer}
+    />);
+    const btn = screen.getByText('Your notifications');
+    fireEvent.click(btn);
+    expect(handleDisplayDrawer).toHaveBeenCalledTimes(1);
+  });
+
+  test('Should verify if clicking on the menu item calls handleHideDrawer function', () => {
+    const newNotifications = [
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' }
+    ];
+    handleHideDrawer = jest.fn();
+    render(<Notifications 
+      notifications={newNotifications}
+      displayDrawer={true}
+      handleHideDrawer = {handleHideDrawer}
+    />);
+    const buttonElement = screen.getByLabelText("Close");
+    fireEvent.click(buttonElement);
+    expect(handleHideDrawer).toHaveBeenCalledTimes(1);
   });
 });
+

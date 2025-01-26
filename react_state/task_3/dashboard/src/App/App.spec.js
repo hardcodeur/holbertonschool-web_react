@@ -1,63 +1,51 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import App from './App';
-import Header from "../Header/Header";
-import Login from "../Login/Login";
-import Footer from "../Footer/Footer";
-import Notifications from "../Notifications/Notifications";
+import React from 'react';
+import { render,fireEvent,screen } from "@testing-library/react";
+import { test, expect, jest } from "@jest/globals";
+import App from "./App";
+import { StyleSheetTestUtils } from 'aphrodite';
 
-test('Renders App component without crashing', () => {
-  render(<App />);
+StyleSheetTestUtils.suppressStyleInjection();
+
+
+test('renders all components correctly', () => {
+    render(<App />);
 });
 
-test('Renders Header component without crashing', () => {
-  render(<Header />);
+test('should call logOut function when control and h keys are pressed', () => {
+    const logOutMock = jest.fn();
+    jest.spyOn(window, 'alert').mockImplementation(() => { });
+    render(<App isLoggedIn={false} logOut={logOutMock} />);
+    fireEvent.keyDown(document, { ctrlKey: true, key: 'h' });
+    expect(logOutMock).toHaveBeenCalledTimes(1);
 });
 
-test('Renders Login component without crashing', () => {
-  render(<Login />);
+test('Should call a alerte function with this string "Logging you out"', () => {
+    window.alert = jest.fn();
+    render(<App />);
+    fireEvent.keyDown(document, { ctrlKey: true, key: 'h' });
+    expect(window.alert).toHaveBeenCalledWith("Logging you out")
 });
 
-test('Renders Footer component without crashing', () => {
-  render(<Footer />);
+test('Should check if user is login the title "Course list" is present', () => {
+    const props = {
+        isLoggedIn : true
+    }
+    render(<App {...props} />)
+    const title = screen.getByRole('heading', { name: /Course list/i })
+    expect(title).toBeInTheDocument()
 });
 
-test('Renders Notifications component without crashing', () => {
-  render(<Notifications />);
+test('Should check if user is logout the title "Log in to continue" is present', () => {
+    const props = {
+        isLoggedIn : false
+    }
+    render(<App {...props} />)
+    const title = screen.getByRole('heading', { name: /Log in to continue/i })
+    expect(title).toBeInTheDocument()
 });
 
-test('Renders 2 input elements and a button with the text "OK" when isLoggedIn is false', () => {
-  render(<App />);
-  const emailInput = screen.getByLabelText(/email/i);
-  expect(emailInput).toBeInTheDocument();
-  const passwordInput = screen.getByLabelText(/password/i);
-  expect(passwordInput).toBeInTheDocument();
-  const buttonElement = screen.getByRole('button', { name: 'OK' });
-  expect(buttonElement).toBeInTheDocument();
-});
-
-test('Displays the title "Course list" above the CourseList component when isLoggedIn is true', () => {
-  render(<App />);
-  const emailInput = screen.getByLabelText(/email/i);
-  const passwordInput = screen.getByLabelText(/password/i);
-  fireEvent.change(emailInput, { target: { value: 'user@example.com' } });
-  fireEvent.change(passwordInput, { target: { value: 'password' } });
-  const loginButton = screen.getByRole('button', { name: /OK/i });
-  fireEvent.click(loginButton);
-  const courseListTitle = screen.getByText("Course list");
-  expect(courseListTitle).toBeInTheDocument();
-});
-
-test('Displays the title "Log in to continue" above the Login component when isLoggedIn is false', () => {
-  render(<App />);
-  const loginTitle = screen.getByText('Log in to continue');
-  expect(loginTitle).toBeInTheDocument();
-});
-
-test('Displays "News from the School" and "Holberton School News goes here" by default', () => {
-  render(<App />);
-  const newsTitle = screen.getByText('News from the School');
-  expect(newsTitle).toBeInTheDocument();
-  const newsContent = screen.getByText('Holberton School News goes here');
-  expect(newsContent).toBeInTheDocument();
+test('Should check if the title "News from the School" is present when the default componant is call', () => {
+    render(<App />)
+    const title = screen.getByRole('heading', { name: /News from the School/i })
+    expect(title).toBeInTheDocument()
 });

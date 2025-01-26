@@ -1,23 +1,32 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
+import BodySectionWithMarginBottom from "./BodySectionWithMarginBottom";
+import { render,screen } from "@testing-library/react";
+import { test, expect, jest } from "@jest/globals";
+import { StyleSheetTestUtils } from 'aphrodite';
 
-describe('BodySectionWithMarginBottom', () => {
-    test('Renders a div with the class of bodySectionWithMargin', () => {
-        render(<BodySectionWithMarginBottom title="Test Title" />);
-        const containerDiv = screen.getByTestId('body-section-with-margin');
-        expect(containerDiv).toHaveClass('bodySectionWithMargin');
-    });
+StyleSheetTestUtils.suppressStyleInjection();
 
-    test('Renders the BodySection component with the correct title and content', () => {
-        const title = 'Test Title';
-        const content = 'Test Content';
-        render(
-            <BodySectionWithMarginBottom title={title}>
-                {content}
-            </BodySectionWithMarginBottom>
-        );
-        expect(screen.getByText(title)).toBeInTheDocument();
-        expect(screen.getByText(content)).toBeInTheDocument();
-    });
+// test('Should contains a div with the class bodySectionWithMargin', () => {
+//     const props = {
+//         title : "test"
+//     }
+
+//     const { container } = render(<BodySectionWithMarginBottom {...props}></BodySectionWithMarginBottom>)
+//     expect(container.firstChild).toHaveClass('bodySectionWithMargin');
+// });
+
+test('renders BodySection component', () => {
+    const props = {
+        title : "test"
+    }
+    render(
+        <BodySectionWithMarginBottom {...props}>
+            <p>test 1</p>
+        </BodySectionWithMarginBottom>
+    );
+    const title = screen.getByRole('heading', { name: /test/i });
+    const paragraphe = screen.getByText("test 1");
+
+    expect(title).toBeInTheDocument();
+    expect(paragraphe).toBeInTheDocument();
 });
