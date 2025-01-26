@@ -1,6 +1,8 @@
 import { render, screen, within } from '@testing-library/react';
 import { test, expect } from "@jest/globals";
 import CourseListRow from './CourseListRow';
+import { StyleSheetTestUtils } from 'aphrodite';
+StyleSheetTestUtils.suppressStyleInjection();
 
 test('Should display 2 "th" element whenever the isHeader props set to true', () => {
     render(
@@ -71,3 +73,28 @@ test('Should render 2 "td" elements inside a "tr" element whenever the "isHeader
     expect(trElement).toBeInTheDocument()
     expect(tdElement).toHaveLength(2)
 })
+
+
+// test('Should add background color #f5f5f5ab to table header ', () => {
+//     render(
+//         <table>
+//             <tbody>
+//                 <CourseListRow isHeader={true} textFirstCell="bouh" textSecondCell="bouh !s" />
+//             </tbody>
+//         </table>
+//     )
+//     const tableHeader = screen.getByRole('row');
+//     expect(tableHeader).toHaveStyle({ backgroundColor: 'rgb(222, 181, 180, 0.27)'}) 
+// });
+
+// test('Should add background color #deb5b545 to table row ', () => {
+//     render(
+//         <table>
+//             <tbody>
+//                 <CourseListRow isHeader={true} textFirstCell="bouh" textSecondCell="bouh !s" />
+//             </tbody>
+//         </table>
+//     )
+//     const tablerow = screen.getByRole('row');
+//     expect(tablerow).toHaveStyle({ backgroundColor: 'rgb(245, 245, 245, 0.67)'}) 
+// });
